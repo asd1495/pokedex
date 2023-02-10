@@ -1,0 +1,31 @@
+.pokedex-container {
+    background-color: black;
+    margin-left: 15%;
+    margin-top: 2%;
+    width: 70%;
+    min-height: 475px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 20px;
+}
+
+.pokelist-container {
+    width: 300px;
+    height: 455px;
+    border-radius: 20px;
+    overflow-y: scroll;
+    background-color: #FAF9F6;
+    margin: 10px;
+    flex-grow: 3;
+    border-radius: 20px;
+}
+
+.pokesearchresult-container {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    flex-grow: 1;
+    margin: 10px;
+    background-color: #FAF9F6;
+    border-radius: 20px;
+}

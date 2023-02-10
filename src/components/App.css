@@ -1,0 +1,17 @@
+body {
+    background-color: #e3350d;
+    color: #162447;
+}
+
+.App {
+    text-align: center;
+}
+
+.pokelogo {
+    width: 25%;
+}
+
+h1 {
+    font-size: 50px;
+    font-family: 'Red Hat Display', sans-serif;
+}
