@@ -3,11 +3,54 @@ import Pokedex from "../Pokedex/Pokedex";
 import PokeSearchResult from "./PokeSearchResult/PokeSearchResult";
 import './App.css';
 import { pokemonData } from "../PokeData/pokemonData";
+import { PokemonSchema, PokemonSpritesSchema, UnpatchedPokemonSchema } from "../types/PokemonSchema";
 
+interface AppState {
+    searchField: string;
+    allPokemon: PokemonSchema[];
+    searchedPokemon: PokemonSchema[];
+    selectedPokemon: PokemonSchema | undefined;
+}
 
-class App extends React.Component {
+class App extends React.Component<any, AppState> {
+    state = {
+        searchField: '',
+        allPokemon: [],
+        searchedPokemon: [],
+        selectedPokemon: undefined
+    }
+
+    patchPokemonData = (pokemons: UnpatchedPokemonSchema[]) => {
+        const patchedPokemons = pokemons.map((pokemon) => {
+            let parsedSprites: PokemonSpritesSchema = {
+                normal: undefined,
+                animated: undefined
+            };
+            try {
+                parsedSprites = pokemon.sprites && JSON.parse(pokemon.sprites);
+            } catch(e) {
+                console.log('Exception while parsing', e)
+            }
+            const patchedPokemon: PokemonSchema = {
+                ...pokemon,
+                sprites: parsedSprites,
+            };
+            return patchedPokemon;
+        });
+        return patchedPokemons
+    }
+
     componentDidMount()  {
-        const pokeData = pokemonData;
+        //Patch the stringified sprites
+        const patchedPokemons: PokemonSchema[] = this.patchPokemonData(
+            pokemonData
+        );
+        //Update the state with patched pokemon
+        this.setState({
+            allPokemon: patchedPokemons,
+            searchedPokemon: patchedPokemons,
+            
+        })
     }
 
     render() {
