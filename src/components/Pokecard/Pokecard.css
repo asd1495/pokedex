@@ -18,3 +18,8 @@
 .pokecard:hover {
     transform: scale(1.05);
 }
+
+.pokesprite {
+    height: 100px;
+    width: 100px;
+}
