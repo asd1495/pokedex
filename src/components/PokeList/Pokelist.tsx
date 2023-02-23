@@ -17,7 +17,7 @@ const Pokelist = ({ searchedPokemon }: PokelistProps) => {
             pokemon.name && (
               <Pokecard 
               key={pokemon.id}
-              name={pokemon.name}
+              name={pokemon.name.toUpperCase()}
               spriteUrl={pokemon.sprites.normal} />
             )
             
