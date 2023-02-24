@@ -1,6 +1,5 @@
 import React from "react";
 import Pokedex from "../Pokedex/Pokedex";
-import PokeSearchResult from "./PokeSearchResult/PokeSearchResult";
 import './App.css';
 import { pokemonData } from "../PokeData/pokemonData";
 import { PokemonSchema, PokemonSpritesSchema, UnpatchedPokemonSchema } from "../types/PokemonSchema";
@@ -54,31 +53,46 @@ class App extends React.Component<any, AppState> {
     }
 
     handleInputChange = (inputValue: string) => {
+        const searchField = inputValue;
         //Filter searched Pokémon
         const { allPokemon } = this.state;
 
         const searchedPokemon = allPokemon.filter(
-            (pokemon: PokemonSchema) => {
+            (pokemon: PokemonSchema) => { 
                 return (
                     pokemon.name &&
                     pokemon.name
                         .toLowerCase()
-                        .includes(inputValue.toLowerCase())
+                        .includes(searchField.toLowerCase())
 
                 )
             }
         )
         this.setState({
-            searchField: inputValue,
+            searchField,
             searchedPokemon,
         });
+    }
+
+    handleClick = (pokemonName: string) => {
+        const { allPokemon } = this.state;
+
+        //Find the selected pokemon
+        const selectedPokemon = allPokemon.find(
+            (pokemon: PokemonSchema) => pokemon.name === pokemonName
+        )
+        //Update the state
+        this.setState({ selectedPokemon })
     }
 
     render() {
         return <div className="App">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png" alt="pokemon logo" className="pokelogo"/>
-            <Pokedex searchedPokemon={this.state.searchedPokemon} 
-            onInputChange={this.handleInputChange}
+            <Pokedex 
+                pokemons={this.state.searchedPokemon} 
+                selectedPokemon={this.state.selectedPokemon}
+                onPokemonClick={this.handleClick}
+                onInputChange={this.handleInputChange}
             />
         </div>
     }

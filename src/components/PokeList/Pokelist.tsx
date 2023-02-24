@@ -5,26 +5,27 @@ import Pokecard from "../Pokecard/Pokecard";
 import './Pokelist.css'
 
 interface PokelistProps {
-  searchedPokemon: PokemonSchema[];
+  pokemons: PokemonSchema[];
+  onPokemonClick: (pokemonName: string) => void;
 }
 
-const Pokelist = ({ searchedPokemon }: PokelistProps) => {
+const Pokelist = ({ pokemons, onPokemonClick }: PokelistProps) => {
   return (
-    <div className="pokelist">
-        {searchedPokemon.map((pokemon) => {
-          return (
-
-            pokemon.name && (
-              <Pokecard 
-              key={pokemon.id}
-              name={pokemon.name.toUpperCase()}
-              spriteUrl={pokemon.sprites.normal} />
-            )
-            
-            )
+      <div className="pokelist">
+          {pokemons.map((pokemon) => {
+              return (
+                  pokemon.name && (
+                      <Pokecard
+                          key={pokemon.id}
+                          name={pokemon.name}
+                          spriteUrl={pokemon.sprites.normal}
+                          onPokemonClick={onPokemonClick}
+                      />
+                  )
+              );
           })}
-    </div>
-  )
-}
+      </div>
+  );
+};
 
 export default Pokelist;
